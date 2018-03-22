@@ -21,14 +21,13 @@ end
 describe "#dock_bike" do
   it "throws error when station full" do
     docking_station = DockingStation.new
-    docking_station.dock_bike(Bike.new)
+    20.times {docking_station.dock_bike(Bike.new)}
     expect { docking_station.dock_bike(Bike.new) }.to raise_error "Station full"
   end
-
-  it "returns docked bikes" do
+  it "docks bike if station not full" do
+    docking_station = DockingStation.new
     bike = Bike.new
-    subject.dock_bike(bike)
-    expect(subject.bike).to eq bike
+    expect(docking_station.dock_bike(bike)).to include(bike)
   end
 end
 end
