@@ -9,13 +9,15 @@ class DockingStation
   end
 
   def release_bike
-    raise "No bikes available" if empty?
-    @bikes.pop
+    raise "No bikes available" if empty? || !@bikes.any? { |bike| bike.working }
+    @bikes.delete_at(@bikes.index { |bike| bike.working })  
   end
 
-  def dock_bike(bike)
+  def dock_bike(bike, broken=false)
     raise "Station full" if full?
+    bike.working = false if broken
     @bikes << bike
+
   end
 
 private
